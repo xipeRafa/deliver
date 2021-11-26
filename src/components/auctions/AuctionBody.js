@@ -7,14 +7,12 @@ import { useFirestore } from "../../hooks/useFirestore";
 
 export const AuctionBody = () => {
   const [auction, setAuction] = useState(null);
-  const { globalMsg } = useContext(AuthContext);
+  const { currentUser, globalMsg } = useContext(AuthContext);
   const { docs } = useFirestore("orders");
-
-  console.log(docs);
 
   const [bool, setBool] = useState(false);
 
-  let entregas = docs.filter((el) => el.entregado);
+  let entregas = docs.filter((el) => el.deliver === currentUser.email);
   let pedidos = docs.filter((el) => !el.entregado);
 
   return (
