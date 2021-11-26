@@ -70,7 +70,7 @@ export const AuctionCard = ({ orden }) => {
                     </p>
 
                         <button onClick={() => bidAuction(orden.id, currentUser.email)}
-                        className={orden.entregado ? 'btn btn-primary w-100' : 'btn btn-outline-danger w-100'}>{entregado}</button>
+                        className={orden.entregado ? 'btn btn-primary w-100' : 'btn btn-danger w-100'}>{entregado}</button>
 
                        </div>
      
