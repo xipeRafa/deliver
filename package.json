@@ -1,9 +1,12 @@
 {
   "name": "auctioneer",
   "version": "1.0.0",
+  "homepage": "https://xiperafa.github.io/deliver",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
@@ -14,6 +17,7 @@
     "bootstrap": "^5.0.0-beta2",
     "firebase": "^8.3.1",
     "framer-motion": "^4.0.0",
+    "gh-pages": "^3.2.3",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.2",
     "react-countdown": "^2.3.1",
