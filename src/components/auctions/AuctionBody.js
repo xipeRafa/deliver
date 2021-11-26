@@ -7,23 +7,18 @@ import { useFirestore } from "../../hooks/useFirestore";
 
 export const AuctionBody = () => {
   const [auction, setAuction] = useState(null);
-  const { currentUser, globalMsg } = useContext(AuthContext);
+  const { globalMsg } = useContext(AuthContext);
   const { docs } = useFirestore("orders");
 
   console.log(docs);
 
-  /*let user = currentUser ? currentUser.email : false
+  const [bool, setBool] = useState(false);
 
- let docss
-
- if(user){
-  docss = docs.filter(el => el.email === currentUser.email)
-}else{
-  docss = []
-} */
+  let entregas = docs.filter((el) => el.entregado);
+  let pedidos = docs.filter((el) => !el.entregado);
 
   return (
-    <div className="">
+    <div className="border-transparent">
       {auction && <ProgressBar auction={auction} setAuction={setAuction} />}
 
       <div
@@ -33,15 +28,33 @@ export const AuctionBody = () => {
         {globalMsg && <Alert variant="danger">{globalMsg}</Alert>}
       </div>
 
-      {docs && (
-        <div className="container-fluid">
-          <div className="">
-            {docs.map((doc, i) => {
-              return <AuctionCard orden={doc} key={i} />;
-            })}
+      <div className="text-center mt-3">
+
+        <button className={bool ? "btn btn-primary mx-1" : "btn btn-light mx-1"}
+                onClick={(e) => setBool(true)}>
+          Mis Entregas
+        </button>
+
+        <button className={bool ? "btn btn-light" : "btn btn-primary"}
+                onClick={(e) => setBool(false)}>
+          Los Pedidos
+        </button>
+      </div>
+
+        {bool ? (
+          <div className="container-fluid">
+              {entregas.map((doc, i) => {
+                return <AuctionCard orden={doc} key={i} />;
+              })}
           </div>
-        </div>
-      )}
-    </div>
+        ) : (
+          <div className="container-fluid">
+              {pedidos.map((doc, i) => {
+                return <AuctionCard orden={doc} key={i} />;
+              })}
+          </div>
+        )}
+      </div>
+  
   );
 };
