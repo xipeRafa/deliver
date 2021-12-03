@@ -13,7 +13,7 @@ export const AuctionBody = () => {
   const [bool, setBool] = useState(false);
 
   let entregas = docs.filter((el) => el.deliver === currentUser?.email);
-  let pedidos = docs.filter((el) => !el.entregado);
+  let pedidos = docs.filter((el) => !el.entregado).filter(el => el.noDeliver === false);
 
   return (
     <div className="border-transparent">
