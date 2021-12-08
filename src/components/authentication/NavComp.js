@@ -9,7 +9,7 @@ export const NavComp = () => {
   return (
     <nav className="container navbar navbar-light ">
       <div className="navbar-brand mb-4 w-100 text-center">
-          <h1>nexGym Entregas</h1>
+          <h2>nexGym Entregas Hermosillo</h2>
         </div>
         
         <div className="d-flex flex-column w-100">

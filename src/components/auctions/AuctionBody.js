@@ -12,8 +12,15 @@ export const AuctionBody = () => {
 
   const [bool, setBool] = useState(false);
 
-  let entregas = docs.filter((el) => el.deliver === currentUser?.email).filter(el => el.noDeliver === false);
-  let pedidos = docs.filter((el) => !el.entregado).filter(el => el.noDeliver === false);
+  let entregas = docs
+    .filter((el) => el.deliver === currentUser?.email)
+    .filter((el) => el.noDeliver === false)
+    .filter((el) => el.city === "hermosillo");
+    
+  let pedidos = docs
+    .filter((el) => !el.entregado)
+    .filter((el) => el.noDeliver === false)
+    .filter((el) => el.city === "hermosillo");
 
   return (
     <div className="border-transparent">
@@ -27,32 +34,34 @@ export const AuctionBody = () => {
       </div>
 
       <div className="text-center mt-3">
-
-        <button className={bool ? "btn btn-primary mx-1" : "btn btn-light mx-1"}
-                onClick={(e) => setBool(true)}>
+        <button
+          className={bool ? "btn btn-primary mx-1" : "btn btn-light mx-1"}
+          onClick={(e) => setBool(true)}
+        >
           Mis Entregas
         </button>
 
-        <button className={bool ? "btn btn-light" : "btn btn-primary"}
-                onClick={(e) => setBool(false)}>
+        <button
+          className={bool ? "btn btn-light" : "btn btn-primary"}
+          onClick={(e) => setBool(false)}
+        >
           Los Pedidos
         </button>
       </div>
 
-        {bool ? (
-          <div className="container-fluid">
-              {entregas.map((doc, i) => {
-                return <AuctionCard orden={doc} key={i} />;
-              })}
-          </div>
-        ) : (
-          <div className="container-fluid">
-              {pedidos.map((doc, i) => {
-                return <AuctionCard orden={doc} key={i} />;
-              })}
-          </div>
-        )}
-      </div>
-  
+      {bool ? (
+        <div className="container-fluid">
+          {entregas.map((doc, i) => {
+            return <AuctionCard orden={doc} key={i} />;
+          })}
+        </div>
+      ) : (
+        <div className="container-fluid">
+          {pedidos.map((doc, i) => {
+            return <AuctionCard orden={doc} key={i} />;
+          })}
+        </div>
+      )}
+    </div>
   );
 };
