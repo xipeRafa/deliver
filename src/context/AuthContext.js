@@ -31,6 +31,15 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+  const UTaken = (OId,b) => {
+
+    const db = firestoreApp.collection('orders');
+
+    return db.doc(OId).update({
+      taken:b
+    });
+  };
+
   const UStock = (IdP, qty, selectState, prevStock, global) => {
 
     let newStock = prevStock - qty
@@ -75,6 +84,7 @@ export const AuthProvider = ({ children }) => {
         logout,
         bidAuction,
         UStock,
+        UTaken,
         endAuction,
         globalMsg,
       }}

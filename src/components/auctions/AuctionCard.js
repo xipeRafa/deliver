@@ -4,7 +4,7 @@ import { useItems } from "../../hooks/useItems";
 
 export const AuctionCard = ({ orden }) => {
 
-   const { currentUser, bidAuction, UStock} = useContext(AuthContext); 
+   const { currentUser, bidAuction, UStock, UTaken} = useContext(AuthContext); 
 
   const { items } = useItems("items");
 
@@ -38,7 +38,6 @@ export const AuctionCard = ({ orden }) => {
  let perisur
  let progreso
 
- const[disa, setDisa]=useState(false)
 
  orden.items.map((el) => {
       qty = el.qty
@@ -54,7 +53,7 @@ export const AuctionCard = ({ orden }) => {
 
  const handleUStock =()=>{
      UStock(IdP, qty, selectState, prevStock, global) 
-     setDisa(true)
+     UTaken(orden.id, true)
  }
 
     return (
@@ -103,7 +102,7 @@ export const AuctionCard = ({ orden }) => {
                         className={orden.entregado ? 'd-none' : 'btn btn-danger w-100'}>{entregado}</button>
 
                     <div className={!orden.entregado ? 'd-none': 'mt-1'}>
-                        <select className="w-100 btn btn-outline-primary" onChange={handleSelect} value={selectState}>
+                        <select className="w-100 btn btn-outline-primary" onChange={handleSelect} value={selectState} disabled={orden.taken}>
                             <option value="" disabled selected>Elija una Sucursal por Produco a Recoger</option>
                             <option value="cseri">Camino del Seri</option>
                             <option value="quiroga">Quiroga</option>
@@ -114,8 +113,8 @@ export const AuctionCard = ({ orden }) => {
                     </div>
 
                     <button onClick={handleUStock}
-                        className={orden.entregado ? selectState !== '' ? 'form-control mt-3' : 'd-none' : 'd-none'} disabled={disa}>
-                             Marcar como Productos casi Entregados {disa ? '✓' : 'x'}
+                        className={orden.entregado ? selectState !== 'mt-3' ? 'form-control mt-3' : 'd-none' : 'd-none'} disabled={orden.taken}>
+                             Marcar para Recoger en Sucursal { orden.taken ? '✓' : ' '}
                     </button>
                </div>
           )}
