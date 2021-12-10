@@ -113,7 +113,7 @@ export const AuctionCard = ({ orden }) => {
                     </div>
 
                     <button onClick={handleUStock}
-                        className={orden.entregado ? selectState !== 'mt-3' ? 'form-control mt-3' : 'd-none' : 'd-none'} disabled={orden.taken}>
+                        className={orden.entregado ? selectState !== '' ? 'form-control mt-3' : 'd-none' : 'd-none'} disabled={orden.taken}>
                              Marcar para Recoger en Sucursal { orden.taken ? '✓' : ' '}
                     </button>
                </div>
