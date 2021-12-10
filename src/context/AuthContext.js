@@ -31,6 +31,21 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
+  const UStock = (IdP, qty, selectState, prevStock, global) => {
+
+    let newStock = prevStock - qty
+
+    /* console.log(IdP,'--', qty, '--', selectState, '--', prevStock, '--', newStock, '--', global)  */
+
+    const db = firestoreApp.collection('items');
+
+    return db.doc(IdP).update({
+      [selectState]:newStock,
+      stock:global - qty
+    });   
+
+  };
+
   const endAuction = (auctionId) => {
     const db = firestoreApp.collection('auctions');
 
@@ -59,6 +74,7 @@ export const AuthProvider = ({ children }) => {
         login,
         logout,
         bidAuction,
+        UStock,
         endAuction,
         globalMsg,
       }}
