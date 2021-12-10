@@ -53,7 +53,10 @@ export const AuctionCard = ({ orden }) => {
 
  const handleUStock =()=>{
      UStock(IdP, qty, selectState, prevStock, global) 
-     UTaken(orden.id, true)
+     UTaken(orden.id, selectState)
+     setTimeout(() => {
+        setSelectState('')
+     },2000);
  }
 
     return (
@@ -78,10 +81,10 @@ export const AuctionCard = ({ orden }) => {
                          <p><span className='text-muted'>cantidad:</span>  {el.qty}</p>
                          <div>
                               <p>
+                                  <span className='text-muted'> Quiroga</span> {quiroga},
+                                  <span className='text-muted'> Perisur</span> {perisur},
+                                  <span className='text-muted'> Progreso</span> {progreso},
                                   <span className='text-muted'> C Seri </span>{cseri}
-                                  <span className='text-muted'> Quiroga</span> {quiroga}
-                                  <span className='text-muted'> Perisur</span> {perisur}
-                                  <span className='text-muted'> Progreso</span> {progreso}
                               </p>
                          </div>
                         {
@@ -94,7 +97,7 @@ export const AuctionCard = ({ orden }) => {
                     ))}
                      <br/>
                     <p className="border text-center">
-                      Total a Pagar: $ 
+                      Total a Pagar: $ {' '}
                       <span className="text-white bg-dark fs-4 py-1 px-2 ">{orden.total}</span>
                     </p>
 
@@ -102,20 +105,39 @@ export const AuctionCard = ({ orden }) => {
                         className={orden.entregado ? 'd-none' : 'btn btn-danger w-100'}>{entregado}</button>
 
                     <div className={!orden.entregado ? 'd-none': 'mt-1'}>
-                        <select className="w-100 btn btn-outline-primary" onChange={handleSelect} value={selectState} disabled={orden.taken}>
-                            <option value="" disabled selected>Elija una Sucursal por Produco a Recoger</option>
+                        <select className={orden.taken ? 'd-none' : "w-100 btn btn-primary" }  
+                                onChange={handleSelect} value={selectState} >
+                            <option value="" disabled selected>Elija Sucursal para Recoger Pedido</option>
                             <option value="cseri">Camino del Seri</option>
                             <option value="quiroga">Quiroga</option>
                             <option value="perisur">Perisur</option>
                             <option value="progreso">Progreso</option>
-                            <option value="navojoa">Navojoa</option>
                         </select>
                     </div>
 
-                    <button onClick={handleUStock}
-                        className={orden.entregado ? selectState !== '' ? 'form-control mt-3' : 'd-none' : 'd-none'} disabled={orden.taken}>
-                             Marcar para Recoger en Sucursal { orden.taken ? '✓' : ' '}
-                    </button>
+                    <div className={!selectState && 'd-none' }>
+                        <button onClick={handleUStock}
+                                className={!orden?.taken 
+                                            ? 'btn btn-danger w-100 mt-3' 
+                                            : 'btn btn-primary w-100 mt-3'} 
+                                            disabled={orden.taken}
+                        >
+
+                                    Aceptar Recoger en Sucursal {' '} 
+
+                             {orden?.recogerEn?.toUpperCase()} {' '} 
+                             {orden?.taken && '✓' }
+                        </button>
+                     </div>     
+
+                     <button className={orden.taken 
+                                        ? 'btn btn-success w-100 mt-3' 
+                                        : 'd-none'} disabled>
+                            Te Esperan en {' '}
+                            {orden?.recogerEn?.toUpperCase()}
+
+                    </button>           
+
                </div>
           )}
           </div>

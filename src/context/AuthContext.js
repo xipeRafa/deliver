@@ -31,12 +31,13 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const UTaken = (OId,b) => {
+  const UTaken = (OId,selectState) => {
 
     const db = firestoreApp.collection('orders');
 
     return db.doc(OId).update({
-      taken:b
+      taken:true,
+      recogerEn:selectState
     });
   };
 
