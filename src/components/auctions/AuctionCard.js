@@ -64,7 +64,7 @@ export const AuctionCard = ({ orden }) => {
 
           <div>
           {currentUser && (
-               <div className=" pl-5 col-sm-4 m-1 p-3 my-3 bg-white mt-5 ">
+               <div className=" pl-5 m-1 p-3 my-3 bg-white mt-5 ">
                     <h6>Id-Orden: <span className="text-muted">{orden.id}</span>  </h6>
 
                     <p> <span className='text-muted'>comprador:</span> {orden.buyer.name} </p>
