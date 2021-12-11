@@ -29,7 +29,6 @@ export const AuctionCard = ({ orden }) => {
  let qty 
  let IdP
  let prevStock
- let global
 
  let cseri 
  let quiroga
@@ -41,7 +40,6 @@ export const AuctionCard = ({ orden }) => {
       qty = el.qty
       IdP = el.id
       prevStock = el[selectState]
-      global = el.stock
 
       cseri = el.cseri
       quiroga = el.quiroga
@@ -50,7 +48,7 @@ export const AuctionCard = ({ orden }) => {
  })
 
  const handleUStock =()=>{
-     UStock(IdP, qty, selectState, prevStock, global) 
+     UStock(IdP, qty, selectState, prevStock) 
      UTaken(orden.id, selectState)
      setTimeout(() => {
         setSelectState('')

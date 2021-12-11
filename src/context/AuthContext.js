@@ -41,17 +41,14 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const UStock = (IdP, qty, selectState, prevStock, global) => {
+  const UStock = (IdP, qty, selectState, prevStock) => {
 
     let newStock = prevStock - qty
-
-    /* console.log(IdP,'--', qty, '--', selectState, '--', prevStock, '--', newStock, '--', global)  */
 
     const db = firestoreApp.collection('items');
 
     return db.doc(IdP).update({
-      [selectState]:newStock,
-      stock:global - qty
+      [selectState]:newStock
     });   
 
   };
